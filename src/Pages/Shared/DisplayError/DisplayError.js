@@ -10,6 +10,7 @@ const DisplayError = () => {
     const handleLogOut = () => {
         logOut()
             .then(() => {
+                localStorage.removeItem('accessTokenUseProduct')
                 navigate('/login');
              })
             .catch(err => console.log(err));

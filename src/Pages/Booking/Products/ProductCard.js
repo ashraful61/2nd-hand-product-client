@@ -1,7 +1,7 @@
 import React from "react";
 import moment from "moment";
 
-const ProductCard = ({ product, setBookingInfo }) => {
+const ProductCard = ({ product, setBookingInfo, fromAdvertised }) => {
   const {
     name,
     originalPrice,
@@ -54,7 +54,9 @@ const ProductCard = ({ product, setBookingInfo }) => {
         </p>
 
         <p>{description}</p>
-        <div className="card-actions">
+        {
+          fromAdvertised ||  
+          <div className="card-actions">
           <label
             // disabled={slots.length === 0}
             htmlFor="booking-modal"
@@ -64,6 +66,8 @@ const ProductCard = ({ product, setBookingInfo }) => {
             Buy Now
           </label>
         </div>
+        }
+       
       </div>
     </div>
   );

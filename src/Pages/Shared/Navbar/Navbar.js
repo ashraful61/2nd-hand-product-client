@@ -1,22 +1,23 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider';
+import useUserRole from '../../../hooks/useUserRole';
 
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
-
+    const [userRole] = useUserRole(user?.email);
     const handleLogOut = () => {
         logOut()
-            .then(() => { })
+            .then(() => { localStorage.removeItem('accessTokenUseProduct') })
             .catch(err => console.log(err));
     }
 
     const menuItems = <React.Fragment>
         <li><Link to="/">Home</Link></li>
-        {/* <li><Link to="/appointment">Appointment</Link></li> */}
         <li><Link to="/about">About</Link></li>
         {user?.uid ?
             <>
+               {userRole === 'seller' && <li><Link to="/advertisedItems">Advertised items</Link></li>}
                 <li><Link to="/dashboard">Dashboard</Link></li>
                 <li className="font-semibold">
                     <Link className="border-2 rounded-full">

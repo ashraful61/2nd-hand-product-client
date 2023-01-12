@@ -9,7 +9,7 @@ const DashboardLayout = () => {
     const [userRole] = useUserRole(user?.email);
     console.log(userRole)
     return (
-        <div>
+        <div className='pb-8'>
             <Navbar></Navbar>
             <div className="drawer drawer-mobile">
                 <input id="dashboard-drawer" type="checkbox" className="drawer-toggle" />
@@ -18,7 +18,7 @@ const DashboardLayout = () => {
                 </div>
                 <div className="drawer-side">
                     <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
-                    <ul className="menu p-4 w-80 text-base-content">
+                    <ul className="menu p-4 w-80 text-base-content bg-white">
                         <li><Link to="/dashboard">My Orders</Link></li>
                         {
                             userRole ==='admin' && <>

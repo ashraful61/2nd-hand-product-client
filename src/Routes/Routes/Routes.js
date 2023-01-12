@@ -13,6 +13,7 @@ import AdminRoute from "../AdminRoute/AdminRoute";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import MyProducts from "../../Pages/Dashboard/MyProducts/MyProducts";
 import Products from "../../Pages/Booking/Products/Products";
+import AdvertisedItem from "../../Pages/AdvertisedItem/AdvertisedItem";
 
 const router = createBrowserRouter([
     {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
             {
                 path: '/',
                 element: <Home></Home>
+            },
+            {
+                path:'/advertisedItems',
+                element:<AdvertisedItem></AdvertisedItem>
             },
             {
                 path: '/login',

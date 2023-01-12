@@ -54,7 +54,8 @@ const AddProduct = () => {
             resalePrice: data.resalePrice,
             yearsOfUse: data.yearsOfUse,
             sellerName: user?.displayName,
-            postedDate: new Date()
+            postedDate: new Date(),
+            email: user?.email
           };
 
           // save product information to the database
