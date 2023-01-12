@@ -1,8 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../contexts/AuthProvider";
 import Loading from "../../Shared/Loading/Loading";
 
 const AddProduct = () => {
@@ -11,6 +12,7 @@ const AddProduct = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const { user } = useContext(AuthContext);
 
   const imageHostKey = process.env.REACT_APP_img_bb_key;
 
@@ -47,7 +49,12 @@ const AddProduct = () => {
             conditionType: data.conditionType,
             description: data.description,
             product_category: data.product_category,
-            purchasedYear: data.purchasedYear
+            purchasedYear: data.purchasedYear,
+            originalPrice: data.originalPrice,
+            resalePrice: data.resalePrice,
+            yearsOfUse: data.yearsOfUse,
+            sellerName: user?.displayName,
+            postedDate: new Date()
           };
 
           // save product information to the database
@@ -102,17 +109,51 @@ const AddProduct = () => {
         <div className="form-control w-full ">
           <label className="label">
             {" "}
-            <span className="label-text">Price</span>
+            <span className="label-text">Original Price</span>
           </label>
           <input
             type="number"
-            {...register("price", {
-              required: "Price is Required",
+            {...register("originalPrice", {
+              required: "Original Price is Required",
             })}
             className="input input-bordered w-full "
           />
-          {errors.price && (
-            <p className="text-red-500">{errors.price.message}</p>
+          {errors.originalPrice && (
+            <p className="text-red-500">{errors.originalPrice.message}</p>
+          )}
+        </div>
+
+        <div className="form-control w-full ">
+          <label className="label">
+            {" "}
+            <span className="label-text">Resale Price</span>
+          </label>
+          <input
+            type="number"
+            {...register("resalePrice", {
+              required: "Resale Price is Required",
+            })}
+            className="input input-bordered w-full "
+          />
+          {errors.resalePrice && (
+            <p className="text-red-500">{errors.resalePrice.message}</p>
+          )}
+        </div>
+
+        <div className="form-control w-full ">
+          <label className="label">
+            {" "}
+            <span className="label-text">Years of Use</span>
+          </label>
+          <input
+            type="text"
+            {...register("yearsOfUse", {
+              required: "Year is Required",
+            })}
+            className="input input-bordered w-full "
+          />
+          {errors.yearsOfUse && (
+            <p className="text-red-500">{errors.yearsOfUse.message}</p>
           )}
         </div>
 
