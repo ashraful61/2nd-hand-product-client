@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import moment from 'moment';
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider';
@@ -17,6 +18,7 @@ const MyOrders = () => {
                 }
             });
             const data = await res.json();
+            console.log(data)
             return data;
         }
     })
@@ -29,22 +31,22 @@ const MyOrders = () => {
                     <thead>
                         <tr>
                             <th></th>
-                            <th>Name</th>
-                            <th>Treatment</th>
+                            <th>Item Name</th>
+                            <th>price</th>
                             <th>Date</th>
-                            <th>Time</th>
+                            <th>Location</th>
                             <th>Payment</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {/* {
+                        {
                             bookings &&
                             bookings?.map((booking, i) => <tr key={booking._id}>
                                 <th>{i + 1}</th>
-                                <td>{booking.patient}</td>
-                                <td>{booking.treatment}</td>
-                                <td>{booking.appointmentDate}</td>
-                                <td>{booking.slot}</td>
+                                <td>{booking.name}</td>
+                                <td>{booking.price}</td>
+                                <td>{moment(booking.bookingDate).utc().format("YYYY-MM-DD")}</td>
+                                <td>{booking.location}</td>
                                 <td>
                                     {
                                         booking.price && !booking.paid && <Link
@@ -60,7 +62,7 @@ const MyOrders = () => {
                                     }
                                 </td>
                             </tr>)
-                        } */}
+                        }
                     </tbody>
                 </table>
             </div>

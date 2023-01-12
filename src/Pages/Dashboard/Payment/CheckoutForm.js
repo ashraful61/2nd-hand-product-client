@@ -10,7 +10,7 @@ const CheckoutForm = ({ booking }) => {
 
     const stripe = useStripe();
     const elements = useElements();
-    const { price, email, patient, _id } = booking;
+    const { price, email, userName, location, _id, productId, phone, name } = booking;
 
     useEffect(() => {
         // Create PaymentIntent as soon as the page loads
@@ -59,8 +59,12 @@ const CheckoutForm = ({ booking }) => {
                 payment_method: {
                     card: card,
                     billing_details: {
-                        name: patient,
-                        email: email
+                        itemName: name,
+                        userName,
+                        email,
+                        location,
+                        productId,
+                        phone
                     },
                 },
             },
@@ -77,7 +81,12 @@ const CheckoutForm = ({ booking }) => {
                 price,
                 transactionId: paymentIntent.id,
                 email,
-                bookingId: _id
+                bookingId: _id,
+                itemName: name,
+                userName,
+                location,
+                productId,
+                phone
             }
             fetch('http://localhost:5000/payments', {
                 method: 'POST',

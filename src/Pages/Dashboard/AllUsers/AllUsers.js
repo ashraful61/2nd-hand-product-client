@@ -1,8 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import { toast } from "react-hot-toast";
+import Swal from "sweetalert2";
 
 const AllUsers = () => {
-  const { data: users = [] } = useQuery({
+
+  const { data: users = [], refetch } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
       const res = await fetch("http://localhost:5000/users");
@@ -12,6 +15,33 @@ const AllUsers = () => {
   });
 
 
+  const handleDeleteUserPopUp = (user) => {
+    Swal.fire({
+      title: `Do you want to delete ${user?.name}`,
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        handleDeleteUser(user)
+      }
+    })
+  }
+
+  const handleDeleteUser = (user) => {
+    fetch(`http://localhost:5000/users/${user._id}`, {
+      method: 'DELETE', 
+      headers: {
+          authorization: `bearer ${localStorage.getItem('accessTokenUseProduct')}`
+      }
+  })
+  .then(res => res.json())
+  .then(data => {
+      if(data.deletedCount > 0){
+          refetch();
+          toast.success(`${user.name} deleted successfully`)
+      }
+  })
+  }
   return (
     <div>
       <h2 className="text-3xl">All Users</h2>
@@ -34,7 +64,8 @@ const AllUsers = () => {
                 <td>{user.email}</td>
                 <td>{user.role}</td>
                 <td>
-                  <button className="btn btn-xs btn-danger">Delete</button>
+                  <button onClick={() => handleDeleteUserPopUp(user)} className="btn btn-sm btn-danger">Delete</button> &nbsp;
+                 { user?.role === 'seller' && <button className="btn btn-sm btn-info">Verify</button>}
                 </td>
               </tr>
             ))}
