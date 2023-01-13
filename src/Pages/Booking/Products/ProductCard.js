@@ -14,6 +14,7 @@ const ProductCard = ({ product, setBookingInfo, fromAdvertised }) => {
     conditionType,
     description,
     purchasedYear,
+    sellStatus
   } = product;
   return (
     <div className="card w-96 bg-base-100 shadow-xl">
@@ -49,13 +50,20 @@ const ProductCard = ({ product, setBookingInfo, fromAdvertised }) => {
           {purchasedYear}
         </p>
         <p>
+          <strong>In stock: </strong>
+          {sellStatus}
+        </p>
+        <p>
           <strong>Posted Date:</strong>{" "}
           {moment(postedDate).utc().format("YYYY-MM-DD")}
         </p>
 
-        <p>{description}</p>
+        <p>
+          <strong>Description:</strong>
+          {description}
+          </p>
         {
-          fromAdvertised ||  
+          fromAdvertised ||  (sellStatus === 'available' &&
           <div className="card-actions">
           <label
             // disabled={slots.length === 0}
@@ -66,6 +74,7 @@ const ProductCard = ({ product, setBookingInfo, fromAdvertised }) => {
             Buy Now
           </label>
         </div>
+          )
         }
        
       </div>
