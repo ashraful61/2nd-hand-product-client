@@ -17,7 +17,7 @@ const Products = () => {
         </h1>
       )}
 
-      <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-8">
         {products.length === 0 && (
           <h1 className="text-3xl"> No product found for this category! </h1>
         )}

@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import moment from "moment";
+import { AuthContext } from "../../../contexts/AuthProvider";
 
 const ProductCard = ({ product, setBookingInfo, fromAdvertised }) => {
   const {
@@ -14,8 +15,23 @@ const ProductCard = ({ product, setBookingInfo, fromAdvertised }) => {
     conditionType,
     description,
     purchasedYear,
-    sellStatus
+    sellStatus,
+    email,
   } = product;
+
+  const { user } = useContext(AuthContext);
+  const [isVerified, setIsVerified] = useState(false);
+
+  useEffect(() => {
+    if (user?.email) {
+      fetch(`http://localhost:5000/users/role/${user?.email}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setIsVerified(data.isVerified);
+        });
+    }
+  }, [user?.email]);
+
   return (
     <div className="card w-96 bg-base-100 shadow-xl">
       <figure className="px-10 pt-10">
@@ -24,34 +40,40 @@ const ProductCard = ({ product, setBookingInfo, fromAdvertised }) => {
       <div className="card-body items-center">
         <h2 className="card-title">{name}</h2>
         <p>
-          <strong>Original Price:</strong>
+          <strong>Original Price: </strong>
           {originalPrice}
         </p>
         <p>
-          <strong>Resale Price:</strong>
+          <strong>Resale Price: </strong>
           {resalePrice}
         </p>
         <p>
-          <strong>Yeas of Used:</strong>
+          <strong>Yeas of Used: </strong>
           {yearsOfUse}
         </p>
         <p>
-          <strong>Seller Name:</strong>
+          {isVerified && <span>Verified</span>} <strong>Seller Name: </strong>
           {sellerName}
         </p>
         <p>
-          <strong>Location:</strong> {location}
+          <strong>Email: </strong>
+          {email}
         </p>
         <p>
-          <strong>Condition Type:</strong> {conditionType}
+          <strong>Location: </strong> {location}
         </p>
         <p>
-          <strong>Purchased Year:</strong>
+          <strong>Condition Type: </strong> {conditionType}
+        </p>
+        <p>
+          <strong>Purchased Year: </strong>
           {purchasedYear}
         </p>
         <p>
           <strong>In stock: </strong>
-          <span className={`${sellStatus === 'sold' && 'text-red-500'}`}>{sellStatus}</span>
+          <span className={`${sellStatus === "sold" && "text-red-500"}`}>
+            {sellStatus}
+          </span>
         </p>
         <p>
           <strong>Posted Date:</strong>{" "}
@@ -61,22 +83,20 @@ const ProductCard = ({ product, setBookingInfo, fromAdvertised }) => {
         <p>
           <strong>Description:</strong>
           {description}
-          </p>
-        {
-          fromAdvertised ||  (sellStatus === 'available' &&
-          <div className="card-actions">
-          <label
-            // disabled={slots.length === 0}
-            htmlFor="booking-modal"
-            className="btn btn-primary text-white"
-            onClick={() => setBookingInfo(product)}
-          >
-            Buy Now
-          </label>
-        </div>
-          )
-        }
-       
+        </p>
+        {fromAdvertised ||
+          (sellStatus === "available" && (
+            <div className="card-actions">
+              <label
+                // disabled={slots.length === 0}
+                htmlFor="booking-modal"
+                className="btn btn-primary text-white"
+                onClick={() => setBookingInfo(product)}
+              >
+                Buy Now
+              </label>
+            </div>
+          ))}
       </div>
     </div>
   );
