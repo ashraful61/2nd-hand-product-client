@@ -22,7 +22,7 @@ const ProductCard = ({ product, setBookingInfo, fromAdvertised }) => {
 
   useEffect(() => {
     if (email) {
-      fetch(`http://localhost:5000/users/isVerified/${email}`)
+      fetch(`https://used-product-server-six.vercel.app/users/isVerified/${email}`)
         .then((res) => res.json())
         .then((data) => {
           setIsVerified(data.isVerified);

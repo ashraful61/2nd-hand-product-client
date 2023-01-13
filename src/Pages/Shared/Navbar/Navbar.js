@@ -10,13 +10,13 @@ const Navbar = () => {
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:5000/users/role/${user?.email}`)
+      fetch(`https://used-product-server-six.vercel.app/users/role/${user?.email}`)
         .then((res) => res.json())
         .then((data) => {
           setUserRole(data.role);
         });
 
-        fetch(`http://localhost:5000/products/advertise/${user?.email}`)
+        fetch(`https://used-product-server-six.vercel.app/products/advertise/${user?.email}`)
         .then((res) => res.json())
         .then((data) => {
           console.log('aaa',data)

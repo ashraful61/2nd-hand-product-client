@@ -21,7 +21,7 @@ console.log(user?.email)
         queryKey: ['products', user?.email],
         queryFn: async () => {
             try {
-                const res = await fetch(`http://localhost:5000/products?email=${user?.email}`, {
+                const res = await fetch(`https://used-product-server-six.vercel.app/products?email=${user?.email}`, {
                     headers: {
                         authorization: `bearer ${localStorage.getItem('accessTokenUseProduct')}`
                     }
@@ -37,7 +37,7 @@ console.log(user?.email)
 
     
     const handleDeleteProduct = product => {
-        fetch(`http://localhost:5000/products/${product._id}`, {
+        fetch(`https://used-product-server-six.vercel.app/products/${product._id}`, {
             method: 'DELETE', 
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessTokenUseProduct')}`
@@ -66,7 +66,7 @@ console.log(user?.email)
     }
 
     const handleAdvertise = (product) => {
-        fetch(`http://localhost:5000/products/advertise/${product?._id}`, {
+        fetch(`https://used-product-server-six.vercel.app/products/advertise/${product?._id}`, {
             method: "PATCH",
             headers: {
               "content-type": "application/json",

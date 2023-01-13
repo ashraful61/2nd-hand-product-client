@@ -13,7 +13,7 @@ const AdvertisedItem = () => {
       try {
         console.log(user);
         const res = await fetch(
-          `http://localhost:5000/products/advertise/${user?.email}`,
+          `https://used-product-server-six.vercel.app/products/advertise/${user?.email}`,
           {
             headers: {
               authorization: `bearer ${localStorage.getItem(
