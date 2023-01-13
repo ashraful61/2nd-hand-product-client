@@ -1,18 +1,26 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../contexts/AuthProvider";
+import "./Navbar.css";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
   const [userRole, setUserRole] = useState("");
+  const [advertisedItems, setAdvertisedItems] = useState([])
 
   useEffect(() => {
     if (user?.email) {
       fetch(`http://localhost:5000/users/role/${user?.email}`)
         .then((res) => res.json())
         .then((data) => {
-        //   console.log(data);
           setUserRole(data.role);
+        });
+
+        fetch(`http://localhost:5000/products/advertise/${user?.email}`)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log('aaa',data)
+         setAdvertisedItems(data)
         });
     }
   }, [user?.email]);
@@ -35,11 +43,11 @@ const Navbar = () => {
       </li>
       {user?.uid ? (
         <>
-          {userRole === "seller" && (
+          {userRole === "seller" && advertisedItems?.length > 0 ? 
             <li>
               <Link to="/advertisedItems">Advertised items</Link>
-            </li>
-          )}
+            </li> : null
+          }
           <li>
             <Link to="/dashboard">Dashboard</Link>
           </li>

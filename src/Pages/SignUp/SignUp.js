@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider";
 import useToken from "../../hooks/useToken";
+import SocialLogin from "../Shared/SocialLogin/SocialLogin";
 
 const SignUp = () => {
   const {
@@ -107,7 +108,7 @@ const SignUp = () => {
             >
               <option value="buyer">Buyer</option>
               <option value="seller">Seller</option>
-              <option value="admin">Admin</option>
+              {/* <option value="admin">Admin</option> */}
             </select>
           </div>
 
@@ -143,14 +144,14 @@ const SignUp = () => {
           />
           {signUpError && <p className="text-red-600">{signUpError}</p>}
         </form>
-        <p>
+        <p className="my-3">
           Already have an account{" "}
           <Link className="text-secondary" to="/login">
             Please Login
           </Link>
         </p>
         <div className="divider">OR</div>
-        <button className="btn btn-outline w-full">CONTINUE WITH GOOGLE</button>
+        <SocialLogin></SocialLogin>
       </div>
     </div>
   );

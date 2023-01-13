@@ -51,7 +51,7 @@ const ProductCard = ({ product, setBookingInfo, fromAdvertised }) => {
         </p>
         <p>
           <strong>In stock: </strong>
-          {sellStatus}
+          <span className={`${sellStatus === 'sold' && 'text-red-500'}`}>{sellStatus}</span>
         </p>
         <p>
           <strong>Posted Date:</strong>{" "}
