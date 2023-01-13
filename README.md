@@ -1,6 +1,6 @@
 
-Admin credentials: EMAIL: admin@gmail.com
-                   PASSWORD: admin123
+Admin credentials: adminEmail: admin@gmail.com
+                   adminPassword: admin123
 
 
 ### Analyzing the Bundle Size
