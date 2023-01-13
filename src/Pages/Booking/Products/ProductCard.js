@@ -1,7 +1,6 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import moment from "moment";
-import { AuthContext } from "../../../contexts/AuthProvider";
-
+import { FaCheckSquare } from 'react-icons/fa';
 const ProductCard = ({ product, setBookingInfo, fromAdvertised }) => {
   const {
     name,
@@ -19,18 +18,17 @@ const ProductCard = ({ product, setBookingInfo, fromAdvertised }) => {
     email,
   } = product;
 
-  const { user } = useContext(AuthContext);
   const [isVerified, setIsVerified] = useState(false);
 
   useEffect(() => {
-    if (user?.email) {
-      fetch(`http://localhost:5000/users/role/${user?.email}`)
+    if (email) {
+      fetch(`http://localhost:5000/users/isVerified/${email}`)
         .then((res) => res.json())
         .then((data) => {
           setIsVerified(data.isVerified);
         });
     }
-  }, [user?.email]);
+  }, [email]);
 
   return (
     <div className="card w-96 bg-base-100 shadow-xl">
@@ -51,8 +49,8 @@ const ProductCard = ({ product, setBookingInfo, fromAdvertised }) => {
           <strong>Yeas of Used: </strong>
           {yearsOfUse}
         </p>
-        <p>
-          {isVerified && <span>Verified</span>} <strong>Seller Name: </strong>
+        <p className="flex">
+          {isVerified && <FaCheckSquare className="h-5 w-5 text-green-600" />} <strong>Seller Name: </strong>
           {sellerName}
         </p>
         <p>

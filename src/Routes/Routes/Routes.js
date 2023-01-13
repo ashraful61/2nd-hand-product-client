@@ -14,6 +14,7 @@ import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import MyProducts from "../../Pages/Dashboard/MyProducts/MyProducts";
 import Products from "../../Pages/Booking/Products/Products";
 import AdvertisedItem from "../../Pages/AdvertisedItem/AdvertisedItem";
+import Blogs from "../../Pages/Home/Blogs/Blogs";
 
 const router = createBrowserRouter([
     {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
             {
                 path:'/advertisedItems',
                 element:<AdvertisedItem></AdvertisedItem>
+            },
+            {
+                path:'/blogs',
+                element:<Blogs></Blogs>
             },
             {
                 path: '/login',
